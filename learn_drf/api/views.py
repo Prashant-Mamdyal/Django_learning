@@ -44,7 +44,7 @@ from learn_drf.api.serializer import MovieSerializer
 #         try:
 #             movie = Movie.objects.get(id=pk)
 #         except:
-#             return Response({"error": "Movie not found"}, status=status.HTTP_404_NOT_FOUND)
+#             return Response({"error": "Movie not present"}, status=status.HTTP_404_NOT_FOUND)
         
 #         serializer = MovieSerializer(movie)
 #         return Response(serializer.data)
@@ -87,7 +87,7 @@ class MovieDetails(APIView):
         try:
             movie = Movie.objects.get(id = pk)
         except:
-            return Response({"error": "Movie not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Movie not present"}, status=status.HTTP_404_NOT_FOUND)
         
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
