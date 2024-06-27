@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import status
 
 from learn_drf.models import Movie
 from learn_drf.api.serializer import MovieSerializer
@@ -29,7 +30,7 @@ def movie_list(request):
         serialier = MovieSerializer(data=request.data)
         if serialier.is_valid():
             serialier.save()
-            return Response(serialier.data)
+            return Response(serialier.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serialier.errors)
 
@@ -37,7 +38,11 @@ def movie_list(request):
 @api_view(['GET','PUT','DELETE'])
 def movie_details(request, pk):
     if request.method == 'GET':
-        movie = Movie.objects.get(id=pk)
+        try:
+            movie = Movie.objects.get(id=pk)
+        except:
+            return Response({"error": "Movie not found"}, status=status.HTTP_404_NOT_FOUND)
+        
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
 
@@ -53,4 +58,4 @@ def movie_details(request, pk):
     if request.method == 'DELETE':
         movie = Movie.objects.get(id = pk)
         movie.delete()
-        return Response("Movie is deleted successfully...")
+        return Response("Movie deleted successfully...", status = status.HTTP_204_NO_CONTENT)
