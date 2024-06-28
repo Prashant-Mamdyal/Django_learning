@@ -51,11 +51,16 @@ from learn_drf.models import Movie
 # It won't add validation we have to add that.
 
 class MovieSerializer(serializers.ModelSerializer):
+    len_name = serializers.SerializerMethodField()          #implementing serializer method field to create a custom field in serializer
+
     class Meta:
         model = Movie
         fields = "__all__"
         #fields = ['id', 'name', 'description']
         #exclude = ['name']
+
+    def get_len_name(self, object):                        # we create method to calculate the length of name.
+        return len(object.name)                            # name of the method should be start from 'get_method_name'
 
     #Field-level Validation-
     def validate_name(self, value):
