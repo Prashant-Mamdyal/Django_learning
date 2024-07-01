@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from learn_drf.models import Movie
+#from learn_drf.models import Movie
+from learn_drf.models import WatchList, StreamPlatform
 
 # # Validators- created method for validating length of description
 # def desc_length(value):
@@ -50,26 +51,40 @@ from learn_drf.models import Movie
 # It includes simple default implementations of .create() and .update().
 # It won't add validation we have to add that.
 
-class MovieSerializer(serializers.ModelSerializer):
-    len_name = serializers.SerializerMethodField()          #implementing serializer method field to create a custom field in serializer
+# class MovieSerializer(serializers.ModelSerializer):
+#     len_name = serializers.SerializerMethodField()          #implementing serializer method field to create a custom field in serializer
+
+#     class Meta:
+#         model = Movie
+#         fields = "__all__"
+#         #fields = ['id', 'name', 'description']
+#         #exclude = ['name']
+
+#     def get_len_name(self, object):                        # we create method to calculate the length of name.
+#         return len(object.name)                            # name of the method should be start from 'get_method_name'
+
+#     #Field-level Validation-
+#     def validate_name(self, value):
+#         if len(value) < 2:
+#             raise serializers.ValidationError("Movie name is too short...")
+#         return value
+    
+#     #Object-level Validation-
+#     def validate(self, data):
+#         if data['name'] == data['description']:
+#             raise serializers.ValidationError("Name and Description should not be same")
+#         return data
+
+### Updating new serializer class for new models
+class WatchListSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Movie
+        model = WatchList
         fields = "__all__"
-        #fields = ['id', 'name', 'description']
-        #exclude = ['name']
 
-    def get_len_name(self, object):                        # we create method to calculate the length of name.
-        return len(object.name)                            # name of the method should be start from 'get_method_name'
+        
+class StreamPlatformSerializer(serializers.ModelSerializer):
 
-    #Field-level Validation-
-    def validate_name(self, value):
-        if len(value) < 2:
-            raise serializers.ValidationError("Movie name is too short...")
-        return value
-    
-    #Object-level Validation-
-    def validate(self, data):
-        if data['name'] == data['description']:
-            raise serializers.ValidationError("Name and Description should not be same")
-        return data
+    class Meta:
+        model = StreamPlatform
+        fields = "__all__"
