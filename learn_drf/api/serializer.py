@@ -84,7 +84,8 @@ class WatchListSerializer(serializers.ModelSerializer):
 
         
 class StreamPlatformSerializer(serializers.ModelSerializer):
-
+    watchlist = WatchListSerializer(many=True, read_only=True)      # this is 'Nested Serializer' used to work with relationship
+                                                                    # the Watchlist variable here is same as related_name in 'Watchlist' model
     class Meta:
         model = StreamPlatform
         fields = "__all__"
