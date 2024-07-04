@@ -153,7 +153,7 @@ class WatchDetails(APIView):
 class StreamPlatformListAV(APIView):
     def get(self, request):
         stream = StreamPlatform.objects.all()
-        serializer = StreamPlatformSerializer(stream, many = True)
+        serializer = StreamPlatformSerializer(stream, many = True) #context={'request': request} is added as third parameter here when you want to work with HyperlinkedRelatedField in serializer.
         return Response(serializer.data)
     
     def post(self, request):

@@ -12,4 +12,4 @@ urlpatterns = [
 
     path('stream/list/', StreamPlatformListAV.as_view(), name = 'streamplatform-list'),
     path('stream/<int:pk>', StreamPlatformDetails.as_view(), name = 'streamplatform-details'),
-]
+]       

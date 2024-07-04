@@ -84,8 +84,18 @@ class WatchListSerializer(serializers.ModelSerializer):
 
         
 class StreamPlatformSerializer(serializers.ModelSerializer):
-    watchlist = WatchListSerializer(many=True, read_only=True)      # this is 'Nested Serializer' used to work with relationship
-                                                                    # the Watchlist variable here is same as related_name in 'Watchlist' model
+    # This is 'Nested Serializer' used to work with relationship. The Watchlist variable here is same as related_name in 'Watchlist' model
+    watchlist = WatchListSerializer(many=True, read_only=True)      
+                                                                    
+    #if you want only title then it return whatever you define in __str__ method in models.
+    #watchlist = serializers.StringRelatedField(many=True)
+
+    #if you want primary key then it return movie primary key                           
+    #watchlist = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    #if you want link of every movie to access it directly it will create a link      
+    #watchlist = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='watch-details')
+
     class Meta:
         model = StreamPlatform
         fields = "__all__"
