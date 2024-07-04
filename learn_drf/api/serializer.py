@@ -1,6 +1,6 @@
 from rest_framework import serializers
 #from learn_drf.models import Movie
-from learn_drf.models import WatchList, StreamPlatform
+from learn_drf.models import WatchList, StreamPlatform, Review
 
 # # Validators- created method for validating length of description
 # def desc_length(value):
@@ -76,7 +76,15 @@ from learn_drf.models import WatchList, StreamPlatform
 #         return data
 
 ### Updating new serializer class for new models
+class ReviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Review
+        fields = "__all__"
+
+
 class WatchListSerializer(serializers.ModelSerializer):
+    reviews = ReviewSerializer(many = True, read_only= True)
 
     class Meta:
         model = WatchList
